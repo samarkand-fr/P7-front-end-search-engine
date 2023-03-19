@@ -1,4 +1,4 @@
-import { displayRecipeCards } from "./factories/cards.js";
+import { displayRecipeCards } from "./components/cards.js";
 import { removeDuplicateItems,matchesFilter  } from "./utils.js";
 
 
