@@ -8,18 +8,25 @@ export const capitalize = (str) => {
 // return boolean
 export const matchesFilter = (recipe, filterLowerCase) => {
     const { name, description, appliance, ustensils, ingredients } = recipe;
-    // func that take a string, converte it to lowercase and checked  if (filterLowerCase) is in the string return boolean
     const includesFilter = (string) => string.toLowerCase().includes(filterLowerCase);
-
+    
     return (
         includesFilter(name) ||
-        includesFilter(description) ||
-        includesFilter(appliance) ||
-        ustensils.some((ustensil) => includesFilter(ustensil)) ||
-        ingredients.some((ingredient) => includesFilter(ingredient.ingredient))
+            includesFilter(description) ||
+            includesFilter(appliance) ||
+            ustensils.some((ustensil) => includesFilter(ustensil)) ||
+            ingredientsMatchFilter(ingredients, includesFilter)
     );
 };
 
+// function returns a boolean value indicating whether any of the ingredients match the filterLowerCase string.
+// takes in the ingredients array and the includesFilter function as arguments
+const ingredientsMatchFilter = (ingredients, includesFilter) => {
+    return (
+        ingredients.length > 0 &&
+            ingredients.some(({ ingredient }) => includesFilter(ingredient))
+    );
+};
 
 // removes duplicate items from an array based on the id property of each item.
 export const removeDuplicateItems = (array) => {
