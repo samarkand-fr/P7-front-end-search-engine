@@ -1,29 +1,34 @@
 import { capitalize } from "../utils.js";
 
-// CARDS COMPONENT
+/**
+ * Renders recipe cards on the web page.
+ * @param {Array} recipes - An array of recipe objects to be displayed.
+ */
 export const displayRecipeCards = (recipes) => {
     const cards = document.querySelector(".cards");
     cards.innerHTML = "";
 
-    // Display message when no recipes are found
+    // Display a message when no recipes are found.
     if (recipes.length === 0) {
         const noRecipesMsg = document.createElement("div");
         noRecipesMsg.className = "cards__no-recipes";
         noRecipesMsg.innerHTML = "<p class=\"cards__no-recipes-text\">Aucune recette ne correspond à votre critère… </p>";
         cards.appendChild(noRecipesMsg);
     } else {
-    // Remove message when recipes are found
+        // Remove the message when recipes are found.
         const noRecipesMsg = document.querySelector(".cards__no-recipes");
         if (noRecipesMsg) {
             noRecipesMsg.remove();
         }
 
-        // Display recipe cards
-        // creating a Document Fragment to store recipe cards that will be dynamically added to the web page.
+        // Create a document fragment to hold the recipe cards before inserting them into the web page.
         const fragment = document.createDocumentFragment();
+
+        // Loop through each recipe and create a card for it.
         recipes.forEach((recipe) => {
             const { name, time, description, ingredients } = recipe;
 
+            // Create the list of ingredients for the card.
             const listCard_HTML = ingredients
                 .map((elt) => {
                     const { ingredient, quantity, unit } = elt;
@@ -34,6 +39,7 @@ export const displayRecipeCards = (recipes) => {
                 })
                 .join("");
 
+            // Create the HTML for the card.
             const card_HTML = `<article class="card">
                             <a href="#">
                               <div class="card__snapshot"></div>
@@ -53,11 +59,14 @@ export const displayRecipeCards = (recipes) => {
                             </a>
                           </article>`;
 
+            // Create a new DOM element from the HTML code.
             const card = document.createRange().createContextualFragment(card_HTML);
+
+            // Add the card to the document fragment.
             fragment.appendChild(card);
         });
+
+        // Insert the cards into the web page.
         cards.appendChild(fragment);
     }
 };
-
-

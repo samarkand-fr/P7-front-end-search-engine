@@ -1,28 +1,40 @@
-import {  } from "./components/cards.js";
+// Import modules
 import { displayFilters }from "./components/filters.js";
 
-// function to open and close filters/buttons
+/**
+ * Toggles the display of the keyword filter when a filter button is clicked.
+ * @param {HTMLElement} btn - The button element that was clicked.
+ * @param {string} buttonValue - The value of the button element.
+*/
 export function isFiltersInteractive(btn, buttonValue) {
-    // get keyword component
-    const displayKeyword = btn.nextElementSibling;
-  
-    if (displayKeyword.classList.contains("filter__show")) {
-    // close the selected menu
+    // Get the filter menu element.
+    const filterMenu = btn.nextElementSibling;
+    
+    // If the filter menu is already displayed, close the selected menu.
+    if (filterMenu.classList.contains("filter__show")) {
         closeSelectFilter(
-            displayKeyword.previousElementSibling,
-            displayKeyword,
-            displayKeyword.parentNode,
-            displayKeyword.parentNode.firstElementChild
+            filterMenu.previousElementSibling,
+            filterMenu,
+            filterMenu.parentNode,
+            filterMenu.parentNode.firstElementChild
         );
     } else {
-    // check if other filters are open and close them
+    // If other filters are open, close them.
         isFilterClosed();
-        // open selected filter
+  
+        // Open the selected filter.
         customizeSearchButton(btn, buttonValue);
     }
 }
 
-// function to close the selected menu
+
+/**
+ * Closes the selected menu and reverts its customization
+ * @param {HTMLElement} inputBtn - The input button element to revert
+ * @param {HTMLElement} filterShow - The HTML element to hide
+ * @param {HTMLElement} parentWidth - The parent element to resize
+ * @param {HTMLElement} rotateArrow - The arrow element to rotate
+*/
 export function closeSelectFilter(inputBtn, filterShow, parentWidth, rotateArrow) {
     inputBtn.setAttribute("type", "button");
     inputBtn.setAttribute("value", `${inputBtn.getAttribute("data-value")}`);
@@ -31,10 +43,14 @@ export function closeSelectFilter(inputBtn, filterShow, parentWidth, rotateArrow
     parentWidth.style.width = "170px";
     rotateArrow.classList.remove("filter__arrow--rotate");
 }
-
-// function to check if other filters are open and close them
+    
+/**
+ * Checks if other filters are open and closes them.
+*/
 export function isFilterClosed() {
+    // Get all filter menus.
     document.querySelectorAll(".filter__menu").forEach((filter) => {
+    // If the current filter menu is open, close it.
         if (filter.classList.contains("filter__show")) {
             closeSelectFilter(
                 filter.previousElementSibling,
@@ -46,29 +62,42 @@ export function isFilterClosed() {
     });
 }
 
-// function to close the filter and load new elements
-// checks if any of the filters have been reloaded, and if so,
-//  it updates the corresponding search button and repopulates the filter options
+/**
+ * Closes the filter and loads new elements
+ * @param {Array} data - The new list of recipes to filter
+ * Checks if any of the filters have been reloaded, and if so,
+ * it updates the corresponding search button and repopulates the filter options.
+ */
 export function handleFilterReload(data) {
+    // Loop through each filter menu.
     document.querySelectorAll(".filter__menu").forEach((filter) => {
+        // Check if the filter menu is open.
         if (filter.classList.contains("filter__show")) {
+            // Get the input button and its value.
             let btn = filter.previousElementSibling;
             let btnvalue = btn.getAttribute("value");
-            // remove previous UL containing LI elements
+            
+            // Remove previous UL containing LI elements.
             document.querySelectorAll(".filter__menu").forEach((ul) => {
                 ul.remove();
             });
-            // populate LI elements with new search
+            
+            // Populate LI elements with new search.
             displayFilters(data);
-            // open input again in text mode
+            
+            // Open input again in text mode.
             customizeSearchButton(btn, btnvalue);
         }
     });
 }
 
-// function to change input type to text and open filter
-// changes the type, placeholder, width, and other attributes 
-// of a given button element based on a specified buttonValue
+
+/**
+ * Changes the type, placeholder, width, and other attributes
+ * of a given button element based on a specified buttonValue.
+ * @param {Element} button - The button element to customize.
+ * @param {string} buttonValue - The value of the button to customize, used to determine how to customize the button.
+*/
 export function customizeSearchButton(button, buttonValue) {
     button.setAttribute("type", "text");
     button.setAttribute("data-value", `${buttonValue}`);

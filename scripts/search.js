@@ -1,16 +1,16 @@
+// Import modules
 import { displayRecipeCards } from "./components/cards.js";
 import { displayFilters } from "./components/filters.js";
 import { showListOfTags } from "./components/tags.js";
 import { tagsArray } from "./components/tags.js";
-import { handleFilterReload} from "./FiltersController.js";
+import { handleFilterReload } from "./FiltersController.js";
 import { removeDuplicateItems,matchesFilter  } from "./utils.js";
 
-
 /**
-This function searches through a list of recipes and returns the matching recipes with any duplicates removed.
-@param {array} recipes - The list of recipes to search through
-@param {string} filter - The search filter to apply to the recipes
-@returns {array} - The matching recipes with any duplicates removed
+ * searches through a list of recipes and returns the matching recipes with any duplicates removed.
+ * @param {array} recipes - The list of recipes to search through
+ * @param {string} filter - The search filter to apply to the recipes
+ * @returns {array} - The matching recipes with any duplicates removed
 */
 export let getMatchingRecipes = (recipes, filter) => {
     // Convert the search filter to lowercase and remove any leading or trailing white spaces.
@@ -40,11 +40,13 @@ export let getMatchingRecipes = (recipes, filter) => {
         }
     }
     // Remove any duplicate items from the queried recipe cards and return the result.
-    return removeDuplicateItems(queriedCards);
+    const distinctRecipes = removeDuplicateItems(queriedCards);
+    return distinctRecipes;
 };
+
 /** 
-  *Define a function to handle recipe searching
-  @param {array} recipes - array of objects
+ * Define a function to handle recipe searching
+ * @param {array} recipes - array of objects
 */
 export let findRecipe = (recipes) => {
     // Get the input element for the search box
@@ -63,13 +65,11 @@ export let findRecipe = (recipes) => {
             timeout = setTimeout(() => {
                 // Find all recipes that match the search query
                 const matchingRecipes = getMatchingRecipes(recipes, searchInput.value);
-                // Remove any duplicate recipes from the search results
-                const distinctRecipes = removeDuplicateItems(matchingRecipes);
   
                 // Display the search results on the page
-                displayRecipeCards(distinctRecipes);
+                displayRecipeCards(matchingRecipes);
                 // Generate filter options based on the search results
-                displayFilters(distinctRecipes);
+                displayFilters(matchingRecipes);
                 // Update the filter status to reflect any changes in the search results
                 handleFilterReload(recipes);
             }, 300);
@@ -86,53 +86,40 @@ export let findRecipe = (recipes) => {
         }
     });
 };
-  
 
 /**
  * Listens for user input in the ingredient filters and calls the displayFilters function
- * @param {array} recipes - The list of recipes to filter
- */
-export let taggedItem = (recipes) => {
-    // Get all input elements with the class "filter__select"
-    const filterInputValue = document.querySelectorAll(".filter__select");
-  
-    // Loop through each input element
-    for (const input of filterInputValue) {
-        // Add an event listener for the "input" event
-        input.addEventListener("input", (e) => {
-        // Prevent the default action and stop the event from bubbling up the DOM
-            e.preventDefault();
-            e.stopPropagation();
-  
-            // Clear the tagsArray and show the updated list of tags
+ * @param {Array} recipes - The list of recipes to filter.
+*/
+export const taggedItem = (recipes) => {
+    // Get all input elements with the class "filter__select".
+    const filterInputs = document.querySelectorAll(".filter__select");
+    
+    // Loop through each input element.
+    for (const input of filterInputs) {
+    // Add an event listener for the "input" event.
+        input.addEventListener("input", (event) => {
+            // Prevent the default action and stop the event from bubbling up the DOM.
+            event.preventDefault();
+            event.stopPropagation();  
+
+            // Clear the tagsArray and show the updated list of tags.
             tagsArray.length = 0;
             showListOfTags(tagsArray);
-  
-            // Display all recipe cards
+
+            // Display all recipe cards.
             displayRecipeCards(recipes);
-  
-            // Get the "data-value" and "data-color" attributes of the input element
+
+            // Get the "data-value" and "data-color" attributes of the input element.
             const value = input.getAttribute("data-value");
             const color = input.getAttribute("data-color");
-  
-            // Remove the next sibling of the input element
-            input.nextElementSibling.remove();
-  
-            // Call the displayFilters function with the appropriate arguments
+
+            // Call the displayFilters function with the appropriate arguments.
             displayFilters(recipes, input, input.value, value, color);
   
-            // Set the width and placeholder of the input element
-            input.parentNode.style.width = "66%";
-            input.setAttribute("placeholder", "Recherche un ingrédient");
-  
-            // Add a class to the next sibling of the input element & previous sibling element
-            input.nextElementSibling.classList.add("filter__show");
-            input.previousElementSibling.classList.add("filter__arrow--rotate");
         });
     }
 };
-  
-
 
 
 
