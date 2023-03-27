@@ -1,8 +1,7 @@
 // Import modules
 import { displayRecipeCards } from "./scripts/components/cards.js"; 
-import { displayFilters } from "./scripts/components/filters.js"; 
 import { isFiltersInteractive } from "./scripts/FiltersController.js";
-import { taggedItem, findRecipe } from "./scripts/search.js"; 
+import { findRecipe } from "./scripts/search.js"; 
 import { recipes } from "./recipes.js"; // import the recipe data
 
 // Define a class for rendering recipes
@@ -15,8 +14,6 @@ class RecipeRenderer {
     renderRecipes() {
         displayRecipeCards(this.recipes); // display the recipe cards
         findRecipe(this.recipes); // add search functionality
-        displayFilters(this.recipes); // display the filters
-        taggedItem(this.recipes); // add filtering functionality
         return this.recipes; // return the recipes
     }
 }

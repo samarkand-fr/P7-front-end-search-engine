@@ -41,22 +41,3 @@ export const matchesFilter = (recipe, filterLowerCase) => {
     );
 };
 
-/**
- * Removes duplicate items from an array based on the id property of each item.
- * @param {Array} array - The input array to remove duplicate items from.
- * @returns {Array} - An array with unique items based on the id property of each item.
-*/
-export const removeDuplicateItems = (array) => {
-    let cleanArray = []; // An array to store unique items.
-    array.forEach((item) => {
-        // Check if there is already an item in `cleanArray` with the same `id` property as the current `item`.
-        // If the item already exists, skip it. Otherwise, add it to `cleanArray`.
-        if (cleanArray.findIndex((el) => el.id === item.id) === -1) {
-            cleanArray.push(item);
-        }
-    });
-    return cleanArray;
-};
-
-
-

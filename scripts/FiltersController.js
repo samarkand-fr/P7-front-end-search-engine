@@ -1,6 +1,6 @@
 // Import modules
 import { displayFilters }from "./components/filters.js";
-
+// import { setAttributes } from "./utils.js";
 /**
  * Toggles the display of the keyword filter when a filter button is clicked.
  * @param {HTMLElement} btn - The button element that was clicked.
@@ -63,7 +63,7 @@ export function isFilterClosed() {
 }
 
 /**
- * Closes the filter and loads new elements
+ * Closes the filter and loads new elements based on a new list of recipes to filter.
  * @param {Array} data - The new list of recipes to filter
  * Checks if any of the filters have been reloaded, and if so,
  * it updates the corresponding search button and repopulates the filter options.
@@ -91,37 +91,35 @@ export function handleFilterReload(data) {
     });
 }
 
-
 /**
- * Changes the type, placeholder, width, and other attributes
- * of a given button element based on a specified buttonValue.
+ * Changes the type, placeholder, width, and other attributes of a given button element based on a specified buttonValue.
  * @param {Element} button - The button element to customize.
  * @param {string} buttonValue - The value of the button to customize, used to determine how to customize the button.
-*/
+ * @returns {void}
+ */
 export function customizeSearchButton(button, buttonValue) {
-    button.setAttribute("type", "text");
-    button.setAttribute("data-value", `${buttonValue}`);
-    button.value = "";
-    switch (buttonValue) {
-    case "Appareil":
-        button.parentNode.style.width = "66%";
-        button.setAttribute("placeholder", "Recherche un appareil");
-        button.nextElementSibling.classList.add("filter__show");
-        button.previousElementSibling.classList.add("filter__arrow--rotate");
-        break;
-    case "Ingrédients":
-        button.parentNode.style.width = "66%";
-        button.setAttribute("placeholder", "Recherche un ingrédient");
-        button.nextElementSibling.classList.add("filter__show");
-        button.previousElementSibling.classList.add("filter__arrow--rotate");
-        break;
-    case "Ustensiles":
-        button.parentNode.style.width = "66%";
-        button.setAttribute("placeholder", "Recherche un ustensile");
-        button.nextElementSibling.classList.add("filter__show");
-        button.previousElementSibling.classList.add("filter__arrow--rotate");
-        break;
-    default:
-        break;
+    // Object containing the values to customize the button for each filter.
+    const values = {
+        Appareil: "Recherche un appareil",
+        Ingrédients: "Recherche un ingrédient",
+        Ustensiles: "Recherche un ustensile",
+    };
+  
+    const value = values[buttonValue];
+  
+    if (value) {
+        const parentNode = button.parentNode;
+        const nextElementSibling = button.nextElementSibling;
+        const prevElementSibling = button.previousElementSibling;
+  
+        parentNode.style.width = "66%";
+        button.setAttribute("type", "text");
+        button.setAttribute("data-value", buttonValue);
+        button.setAttribute("placeholder", value);
+        nextElementSibling.classList.add("filter__show");
+        prevElementSibling.classList.add("filter__arrow--rotate");
+        // the button is cleared and ready for the user to input a new value.
+        button.value = "";
     }
 }
+  

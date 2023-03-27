@@ -16,7 +16,7 @@ export let tagsArray = [];
 const listenToTags = (data) => {
     document.querySelectorAll(".tags__close").forEach((tag) => {
         tag.addEventListener("click", handleTagRemoval);
-        console.log(data,tag);
+        console.log(data);
     });
 };
 
@@ -27,7 +27,7 @@ const listenToTags = (data) => {
 const handleTagRemoval = (event) => {
     // Get the ID of the clicked element and parse it as an integer.
     const ID = parseInt(event.currentTarget.id);
-    
+   
     //  Remove the tag from the array of active filter tags.
     tagsArray.splice(ID, 1);
     
