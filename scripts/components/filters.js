@@ -135,29 +135,24 @@ const hydrateFilter = (data, value, btn, datacolor, filter) => {
 /**
  * Helps to apply filters to a given set of data based on user input.
  * @param {array} data - Data to be filtered.
- * @param {object} options - Options to customize filter behavior.(an empty object {} as a default value)
- * @param {string} options.filter - Type of filter applied by user.
- * @param {string} options.value - Filter value.
- * @param {string} options.color - Specify color of button.
  * @param {html element object } filter btn - clicked by user
+ * @param {string} filter - Type of filter applied by user.
+ * @param {string} value - Filter value.
+ * @param {string} color - Specify color of button.
  */
-export const displayFilters = (data, options = {}) => {
-    const { filter, value, color, btn  } = options;
-  
-    // Retrieves the filter value and color from the clicked button and 
-    // calls the hydrateFilter function with the retrieved values and the data parameter.
+export const displayFilters = (data, btn, filter, value, color) => {
     const applyFilter = (button) => {
         const buttonValue = button.getAttribute("value");
         const buttonColor = button.getAttribute("data-color");
         hydrateFilter(data, buttonValue, button, buttonColor, filter);
     };
-  
-    if (filter && value && color) {
+
+    if (btn && filter && value && color) {
         hydrateFilter(data, value, btn, color, filter);
     } else if (data) {
         document.querySelectorAll(".filter__select").forEach(applyFilter);
     }
-  
+
+
     listenToFilter(data, document.querySelectorAll(".filter__option"));
 };
-  

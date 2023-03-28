@@ -78,9 +78,3 @@ function displayRecipeAndFilter(recipes, recipe) {
     // Update the filter status to reflect any changes in the search results
     handleFilterReload(recipes);
 }
-
-
-
-
-
-
