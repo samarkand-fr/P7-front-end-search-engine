@@ -1,6 +1,6 @@
 // Import modules
 import { displayFilters }from "./components/filters.js";
-// import { setAttributes } from "./utils.js";
+
 /**
  * Toggles the display of the keyword filter when a filter button is clicked.
  * @param {HTMLElement} btn - The button element that was clicked.

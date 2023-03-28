@@ -55,11 +55,13 @@ export function findRecipe(recipes) {
             // Set a timeout to perform the search after 300ms
             timeout = setTimeout(() => {
                 const matchingRecipes = getMatchingRecipes(recipes, searchInput.value);
-                displayRecipeAndFilter(matchingRecipes);
+                // Pass the first matching recipe (if any) to the displayRecipeAndFilter function
+                const inputRecipe = matchingRecipes.length > 0 ? matchingRecipes[0] : null;
+                displayRecipeAndFilter(matchingRecipes, inputRecipe);
             }, 300);
         } else {
             // If the search query is too short or empty, display all recipes and reset the filter status
-            displayRecipeAndFilter(recipes);
+            displayRecipeAndFilter(recipes, null);
         }
     });
 }
@@ -68,11 +70,11 @@ export function findRecipe(recipes) {
  * Display the recipe cards and filter options
  * @param {array} recipes - array of objects
  */
-function displayRecipeAndFilter(recipes) {
+function displayRecipeAndFilter(recipes, recipe) {
     // Display the search results on the page
     displayRecipeCards(recipes);
-    // Generate filter options based on the search results
-    displayFilters(recipes);
+    // Generate filter options based on the input recipe and the search results
+    displayFilters(recipes, recipe);
     // Update the filter status to reflect any changes in the search results
     handleFilterReload(recipes);
 }
