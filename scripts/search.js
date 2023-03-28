@@ -4,6 +4,12 @@ import { displayFilters } from "./components/filters.js";
 import { handleFilterReload } from "./FiltersController.js";
 import { matchesFilter } from "./utils.js";
 
+/**
+ * searches through a list of recipes and returns the matching recipes with any duplicates removed.
+ * @param {array} recipes - The list of recipes to search through
+ * @param {string} filter - The search filter to apply to the recipes
+ * @returns {array} - The matching recipes with any duplicates removed
+*/
 export function getMatchingRecipes(recipes, filter) {
     // Convert the search filter to lowercase and remove any leading or trailing white spaces.
     const filterLowerCase = filter.toLowerCase().trim();
@@ -32,6 +38,7 @@ export function getMatchingRecipes(recipes, filter) {
             }
         }
     }
+
     // Use `new Set` to remove any duplicate items from the queried recipe cards and convert it back to an array.
     return Array.from(new Set(queriedCards));
 }
@@ -55,13 +62,11 @@ export function findRecipe(recipes) {
             // Set a timeout to perform the search after 300ms
             timeout = setTimeout(() => {
                 const matchingRecipes = getMatchingRecipes(recipes, searchInput.value);
-                // Pass the first matching recipe (if any) to the displayRecipeAndFilter function
-                const inputRecipe = matchingRecipes.length > 0 ? matchingRecipes[0] : null;
-                displayRecipeAndFilter(matchingRecipes, inputRecipe);
+                displayRecipeAndFilter(matchingRecipes);
             }, 300);
         } else {
             // If the search query is too short or empty, display all recipes and reset the filter status
-            displayRecipeAndFilter(recipes, null);
+            displayRecipeAndFilter(recipes);
         }
     });
 }
@@ -70,11 +75,11 @@ export function findRecipe(recipes) {
  * Display the recipe cards and filter options
  * @param {array} recipes - array of objects
  */
-function displayRecipeAndFilter(recipes, recipe) {
+function displayRecipeAndFilter(recipes) {
     // Display the search results on the page
     displayRecipeCards(recipes);
-    // Generate filter options based on the input recipe and the search results
-    displayFilters(recipes, recipe);
+    // Generate filter options based on the search results
+    displayFilters(recipes);
     // Update the filter status to reflect any changes in the search results
     handleFilterReload(recipes);
 }
