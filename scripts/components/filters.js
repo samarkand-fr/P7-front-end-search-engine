@@ -1,6 +1,8 @@
 // Import functions and modules
 import {capitalize } from "../utils.js";
 import {  listenToFilter } from "./tags.js";
+import { showListOfTags,tagsArray } from "./tags.js";
+import { displayRecipeCards } from "./cards.js";
 
 /** 
  * function generates HTML for the filter options based on the provided list of data.
@@ -135,29 +137,63 @@ const hydrateFilter = (data, value, btn, datacolor, filter) => {
 /**
  * Helps to apply filters to a given set of data based on user input.
  * @param {array} data - Data to be filtered.
- * @param {object} options - Options to customize filter behavior.(an empty object {} as a default value)
- * @param {string} options.filter - Type of filter applied by user.
- * @param {string} options.value - Filter value.
- * @param {string} options.color - Specify color of button.
  * @param {html element object } filter btn - clicked by user
+ * @param {string} filter - Type of filter applied by user.
+ * @param {string} value - Filter value.
+ * @param {string} color - Specify color of button.
  */
-export const displayFilters = (data, options = {}) => {
-    const { filter, value, color, btn  } = options;
-  
-    // Retrieves the filter value and color from the clicked button and 
-    // calls the hydrateFilter function with the retrieved values and the data parameter.
+export const displayFilters = (data, btn, filter, value, color) => {
     const applyFilter = (button) => {
         const buttonValue = button.getAttribute("value");
         const buttonColor = button.getAttribute("data-color");
         hydrateFilter(data, buttonValue, button, buttonColor, filter);
     };
-  
-    if (filter && value && color) {
+
+    if (btn && filter && value && color) {
         hydrateFilter(data, value, btn, color, filter);
     } else if (data) {
         document.querySelectorAll(".filter__select").forEach(applyFilter);
     }
-  
+
+
     listenToFilter(data, document.querySelectorAll(".filter__option"));
 };
+
+
+/**
+ * Binds event listeners to filter select elements and updates the display
+ * of recipe cards based on the selected filters.
+ * @param {Array} recipes - The list of recipes to filter.
+ */
+export let bindFilterEvents = (recipes) => {
+    // Get all filter select elements on the page
+    const filterInputValue = document.querySelectorAll(".filter__select");
   
+    // Add an event listener for each filter select element
+    for (const input of filterInputValue) {
+        input.addEventListener("input", (e) => {
+            e.preventDefault();
+  
+            // Clear the tagsArray and show the list of tags
+            tagsArray.length = 0;
+            showListOfTags(tagsArray);
+  
+            // Display all recipe cards
+            displayRecipeCards(recipes);
+  
+            // Get the value of (data-value and data-color) attributes from the filter select element
+            const value = input.getAttribute("data-value");
+            const color = input.getAttribute("data-color");
+  
+            // Remove the tag list element from the DOM 
+            input.nextElementSibling.remove();
+  
+            // Call the displayFilters function with the selected filter options
+            displayFilters(recipes, input, input.value, value, color);
+  
+            // Update the style of the filter select element and show the tag list
+            input.nextElementSibling.classList.add("filter__show");
+            input.previousElementSibling.classList.add("filter__arrow--rotate");
+        });
+    }
+};
