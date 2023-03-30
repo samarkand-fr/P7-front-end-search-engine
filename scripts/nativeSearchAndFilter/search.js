@@ -1,8 +1,8 @@
 // Import necessary modules
-import { displayRecipeCards } from "./components/cards.js"; // function to display recipe cards
-import { displayFilters } from "./components/filters.js"; // function to display filter options
-import { handleFilterReload } from "./FiltersController.js"; // function to update filter status
-import { matchesFilter } from "./utils.js"; // utility functions checking for filter matches
+import { displayRecipeCards } from "../components/cards.js"; // function to display recipe cards
+import { displayFilters } from "../components/filters.js"; // function to display filter options
+import { handleFilterReload } from "../FiltersController.js"; // function to update filter status
+import { matchesFilter } from "../utils.js"; // utility functions checking for filter matches
 
 /**
  * Searches through a list of recipes and returns the matching recipes with any duplicates removed.

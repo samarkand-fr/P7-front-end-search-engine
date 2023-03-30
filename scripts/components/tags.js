@@ -1,7 +1,7 @@
 // imports
 import { handleFilterReload } from "../FiltersController.js";
 import { displayRecipeCards } from "./cards.js";
-import { getMatchingRecipes } from "../search.js";
+import { getMatchingRecipes } from "../nativeSearchAndFilter/search.js";
 
 // Declare a variable to store the original recipe data.
 let allRecipes = [];
