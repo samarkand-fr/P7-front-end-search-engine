@@ -376,6 +376,12 @@ body {
   .filter__option {
     width: 50%;
   } 
+ 
+ .filter__menu{
+    z-index: 2;
+ }
+ 
+
 
 }
 

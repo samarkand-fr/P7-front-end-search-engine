@@ -17,7 +17,7 @@ export const getDistinctItems = (data, filter, type) => {
             )
         );
         break;
-    case "appliances":
+    case "appliance":
         items = data.map(
             recipe => recipe.appliance.toLowerCase().trim()
         );

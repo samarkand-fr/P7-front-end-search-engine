@@ -22,6 +22,9 @@ export function getMatchingRecipes(recipes, filter) {
         // If the recipe matches the filter, return the recipe object
             return recipe;
         } else if (
+            // looping over the recipe.ustensils array and checking if any of the ustensils contain the filterLowerCase value.
+            // looping over the recipe.ingredients array and checking 
+            // if any of the ingredient objects contain the filterLowerCase value in their ingredient property.
             recipe.ustensils.some(ustensil => ustensil.includes(filterLowerCase)) ||
             recipe.ingredients.some(ingredient => ingredient.ingredient.includes(filterLowerCase))
         ) {

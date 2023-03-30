@@ -3,7 +3,7 @@ import { displayRecipeCards } from "./scripts/components/cards.js";
 import { displayFilters , bindFilterEvents } from "./scripts/components/filters.js";
 import { isFiltersInteractive } from "./scripts/FiltersController.js";
 import {  findRecipe } from "./scripts/searchAndFilter/search.js";
-import { recipes } from "./recipes.js";
+import { recipes } from "./data/recipes.js";
 
 // Define a class for rendering recipes
 class RecipeRenderer {
