@@ -377,6 +377,10 @@ body {
     width: 50%;
   } 
 
+  .filter__menu{
+    z-index: 2;
+ }
+
 }
 
 @media only screen and (min-width: 1198px) {

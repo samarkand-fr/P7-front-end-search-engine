@@ -11,7 +11,7 @@ export const getDistinctItems = (data, filter, type) => {
                 items.push(ustensil);
             }
         }
-    } else if (type === "appliances") {
+    } else if (type === "appliance") {
         for (let i = 0; i < data.length; i++) {
             const recipe = data[i];
             const appliance = recipe.appliance.toLowerCase().trim();
