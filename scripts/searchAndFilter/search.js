@@ -3,41 +3,20 @@ import { displayFilters } from "../components/filters.js";
 import { handleFilterReload } from "../FiltersController.js";
 import {  matchesFilter } from "../utils.js";
 
-
-
-/**
- * Returns an array of recipe objects that match the given filter string.
- *
- * @param {Array} recipes - An array of recipe objects to filter.
- * @param {string} filter - A string to use as the filter criteria.
- * @returns {Array} An array of recipe objects that match the filter criteria.
- */
+/** 
+ * This function filters recipes based on the provided filter string
+ * @param {array} recipes - array of objects
+ * @param {string} filter -  used to filter the recipes
+ * @returns an array of recipe objects that match the filter
+*/
 export function getMatchingRecipes(recipes, filter) {
     // Convert the filter string to lowercase and remove any leading or trailing whitespace
     const filterLowerCase = filter.toLowerCase().trim();
-  
-    // Map through each recipe object and check if it matches the filter or contains a matching utensil or ingredient
-    const queriedCards = recipes.map(recipe => {
-        if (matchesFilter(recipe, filterLowerCase)) {
-        // If the recipe matches the filter, return the recipe object
-            return recipe;
-        } else if (
-            // looping over the recipe.ustensils array and checking if any of the ustensils contain the filterLowerCase value.
-            // looping over the recipe.ingredients array and checking 
-            // if any of the ingredient objects contain the filterLowerCase value in their ingredient property.
-            recipe.ustensils.some(ustensil => ustensil.includes(filterLowerCase)) ||
-            recipe.ingredients.some(ingredient => ingredient.ingredient.includes(filterLowerCase))
-        ) {
-        // If the recipe contains a matching utensil or ingredient, return the recipe object
-            return recipe;
-        } else {
-        // If the recipe does not match the filter or contain a matching utensil or ingredient, return null
-            return null;
-        }
-    });
-  
-    // Filter out any null recipe objects and return the resulting array of recipe objects
-    return queriedCards.filter(recipe => recipe !== null);
+    
+    // Filter the recipes to keep only those that match the filter
+    const queriedCards = recipes.filter(recipe => matchesFilter(recipe, filterLowerCase));
+    
+    return queriedCards;
 }
 
 /**
