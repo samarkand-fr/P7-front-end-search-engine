@@ -107,8 +107,7 @@ export let bindFilterEvents = (recipes) => {
         input.addEventListener("input", (e) => {
             e.preventDefault();
   
-            // Clear the tagsArray and show the list of tags
-            tagsArray.length = 0;
+            // show the list of tags
             showListOfTags(tagsArray);
   
             // Display all recipe cards
