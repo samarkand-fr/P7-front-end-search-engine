@@ -8,36 +8,36 @@ export const capitalize = (str) => {
 };
  
 /**
- * Returns a boolean value indicating whether any of the ingredients match the search filter.
- *
- * @param {Array} ingredients - An array of ingredient objects to be checked.
- * @param {function} includesFilter - A function that takes a string argument and returns true if the string includes the search filter.
- * @returns {boolean} - True if any of the ingredients match the search filter, false otherwise.
- */
-const ingredientsMatchFilter = (ingredients, includesFilter) => {
-    return (
-        ingredients.length > 0 &&
-        ingredients.some(({ ingredient }) => includesFilter(ingredient))
-    );
-};
-
-/**
- * Helper function to check if a recipe matches the search filter
- *
- * @param {Object} recipe - The recipe object to be checked.
- * @param {string} filterLowerCase - The search filter string in lowercase.
- * @returns {boolean} - True if the recipe matches the search filter, false otherwise.
- */
+ * Check if a given recipe matches a given filter string.
+ * @param {Object} recipe - The recipe object to check.
+ * @param {string} filterLowerCase - The filter string to match against the recipe.
+ * @returns {boolean} - True if the recipe matches the filter, false otherwise.
+*/
 export const matchesFilter = (recipe, filterLowerCase) => {
     const { name, description, appliance, ustensils, ingredients } = recipe;
+    
+    // A helper function that checks if a string includes a given filter string, case-insensitively
     const includesFilter = (string) => string.toLowerCase().includes(filterLowerCase);
     
-    return (
+    for (let i = 0; i < ustensils.length; i++) {
+        if (includesFilter(ustensils[i])) {
+            return true;
+        }
+    }
+    
+    for (let i = 0; i < ingredients.length; i++) {
+        if (includesFilter(ingredients[i].ingredient)) {
+            return true;
+        }
+    }
+    
+    if (
         includesFilter(name) ||
-        includesFilter(description) ||
-        includesFilter(appliance) ||
-        ustensils.some((ustensil) => includesFilter(ustensil)) ||
-        ingredientsMatchFilter(ingredients, includesFilter)
-    );
+    includesFilter(description) ||
+    includesFilter(appliance)
+    ) {
+        return true;
+    }
+    
+    return false;
 };
-

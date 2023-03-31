@@ -4,42 +4,33 @@ import { displayFilters } from "../components/filters.js"; // function to displa
 import { handleFilterReload } from "../FiltersController.js"; // function to update filter status
 import { matchesFilter } from "../utils.js"; // utility functions checking for filter matches
 
+
 /**
- * Searches through a list of recipes and returns the matching recipes with any duplicates removed.
- * @param {array} recipes - The list of recipes to search through
- * @param {string} filter - The search filter to apply to the recipes
- * @returns {array} - The matching recipes with any duplicates removed
+
+Returns an array of recipe objects that match a given filter string.
+
+@param {Array} recipes - An array of recipe objects to filter.
+
+@param {string} filter - The filter string to match against the recipes.
+
+@returns {Array} - An array of recipe objects that match the filter.
 */
 export function getMatchingRecipes(recipes, filter) {
-    // Convert the search filter to lowercase and remove any leading or trailing white spaces.
+    // Convert the filter string to lowercase and remove any leading or trailing whitespace
     const filterLowerCase = filter.toLowerCase().trim();
-    // Initialize an empty set to store the matching recipes.
-    const queriedCards = new Set();
-
-    // Loop through all the recipes and check if they match the search filter.
+    
+    const queriedCards = [];
+    
+    // Loop through each recipe and check if it matches the filter
     for (let i = 0; i < recipes.length; i++) {
         const recipe = recipes[i];
+   
         if (matchesFilter(recipe, filterLowerCase)) {
-            queriedCards.add(recipe);
-        } else {
-            // check if its ustensils or ingredients contain the search filter.
-            for (let j = 0; j < recipe.ustensils.length; j++) {
-                const ustensil = recipe.ustensils[j];
-                if (ustensil.includes(filterLowerCase)) {
-                    queriedCards.add(recipe);
-                }
-            }
-            // Check if any of the recipe's ingredients match the search filter.
-            for (let k = 0; k < recipe.ingredients.length; k++) {
-                const ingredient = recipe.ingredients[k];
-                if (ingredient.ingredient.includes(filterLowerCase)) {
-                    queriedCards.add(recipe);
-                }
-            }
+            queriedCards.push(recipe);
         }
     }
-    // Convert the Set to an array and return the result.
-    return [...queriedCards];
+    
+    return queriedCards;
 }
 
 /**
