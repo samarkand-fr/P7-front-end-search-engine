@@ -7,11 +7,11 @@
     <meta
       content="Les petits plats, outil de recettes de cuisine"
       name="description"
-    />
+      >
     <meta
       content="Les petits plats, outil de recettes de cuisine"
       name="keywords"
-    />
+    >
     <link rel="icon" href="./assets/image/icone.svg" >
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +39,7 @@
 
       <main class="main">
         <!-- main input search bar -->
-        <section class="search">
+        <form class="search">
           <div class="search__group">
             <input
               type="text"
@@ -51,14 +51,14 @@
               <img src="./assets/image/search.svg" alt="search magnifier" >
             </button>
           </div>
-        </section>
+        </form>
 
         <!-- section where tags are displayed -->
-        <section class="tags">
-        </section>
+        <div class="tags">
+        </div>
 
        <!-- section for filtering  -->
-        <section class="filter">
+        <form class="filter">
           <!-- div  that accepts  the filtered-ingredients  after the input  (in form of list)-->
           <div class="filter__btn">
             <span class="filter__arrow"></span>
@@ -68,7 +68,7 @@
               data-color="primary"
               data-value="Ingrédients"
               value="Ingrédients"
-            />
+            >
           </div>
      <!-- div  that accepts  the filtered-appareil  after the input  (in form of list)-->
           <div class="filter__btn">
@@ -79,7 +79,7 @@
               data-color="success"
               data-value="Appareil"
               value="Appareil"
-            />
+            >
           </div>
            
       <!-- div  that accepts  the filtered-ustensiles  after the input  (in form of list)-->
@@ -91,19 +91,18 @@
               data-color="danger"
               data-value="Ustensiles"
               value="Ustensiles"
-            />
+            >
           </div>
-        </section>
+        </form>
 
         <!-- section for displaying  recipes' cards -->
-        <section class="cards">
-        </section>
+        <div class="cards">
+        </div>
         
       </main>
     </div>
 
     <script src="./index.js" type="module"></script>
 
-    </script>
   </body>
 </html>
