@@ -12,10 +12,14 @@ import {  matchesFilter } from "../utils.js";
 export function getMatchingRecipes(recipes, filter) {
     // Convert the filter string to lowercase and remove any leading or trailing whitespace
     const filterLowerCase = filter.toLowerCase().trim();
-    
-    // Filter the recipes to keep only those that match the filter
-    const queriedCards = recipes.filter(recipe => matchesFilter(recipe, filterLowerCase));
-    
+
+    // Use map() to apply the matchesFilter() function to each recipe
+    const queriedCards = recipes.map(recipe => {
+        if (matchesFilter(recipe, filterLowerCase)) {
+            return recipe;
+        }
+    }).filter(recipe => recipe);
+
     return queriedCards;
 }
 
