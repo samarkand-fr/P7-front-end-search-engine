@@ -15,29 +15,33 @@ export const capitalize = (str) => {
 */
 export const matchesFilter = (recipe, filterLowerCase) => {
     const { name, description, appliance, ustensils, ingredients } = recipe;
-    
+
     // A helper function that checks if a string includes a given filter string, case-insensitively
-    const includesFilter = (string) => string.toLowerCase().includes(filterLowerCase);
+    const includesFilter = (string) => string.toLowerCase().indexOf(filterLowerCase) !== -1;
     
+    // Check if the filter matches the name, description, or appliance
+    if (
+        includesFilter(name) ||
+        includesFilter(description) ||
+        includesFilter(appliance)
+    ) {
+        return true;
+    }
+    
+    // Check if the filter matches any of the ustensils
     for (let i = 0; i < ustensils.length; i++) {
         if (includesFilter(ustensils[i])) {
             return true;
         }
     }
     
+    // Check if the filter matches any of the ingredients
     for (let i = 0; i < ingredients.length; i++) {
         if (includesFilter(ingredients[i].ingredient)) {
             return true;
         }
     }
     
-    if (
-        includesFilter(name) ||
-    includesFilter(description) ||
-    includesFilter(appliance)
-    ) {
-        return true;
-    }
-    
+    // If none of the checks above returned true, the filter does not match the recipe
     return false;
 };
