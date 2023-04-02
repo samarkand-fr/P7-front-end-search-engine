@@ -3,7 +3,7 @@ import {capitalize } from "../utils.js";
 import {  listenToFilter } from "./tags.js";
 import { showListOfTags,tagsArray } from "./tags.js";
 import { displayRecipeCards } from "./cards.js";
-import { getDistinctItems } from "../nativeSearchAndFilter/filtering.js";
+import {getDistinctItems} from "../nativeSearchAndFilter/filtering.js";
 
 /** 
  * function generates HTML for the filter options based on the provided list of data.
@@ -66,7 +66,6 @@ const hydrateFilter = (data, value, btn, datacolor, filter) => {
         break;
     }
 };
-
 
 /**
  * Helps to apply filters to a given set of data based on user input.

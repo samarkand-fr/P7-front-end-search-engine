@@ -30,14 +30,16 @@ const handleTagRemoval = (event) => {
    
     //  Remove the tag from the array of active filter tags.
     tagsArray.splice(ID, 1);
-    
 
-    // If there are no active filter tags, show all the original recipe cards.
-    if (tagsArray.length === 0) {
+    // Get the value of the research input
+    const researchInput = document.querySelector(".search__input").value.trim();
+    
+    // If there are no active filter tags and no research input, show all the original recipe cards.
+    if (tagsArray.length === 0 && researchInput === "") {
         displayRecipeCards(allRecipes[0]);
         handleFilterReload(allRecipes[0]);
     } 
-    // If there are still active filter tags, filter the recipe data accordingly and update the display.
+    // If there are still active filter tags or a research input, filter the recipe data accordingly and update the display.
     else {
         // ensure that all recipes are displayed on the page
         //  when the page is first loaded or when the filtering is reset.
@@ -45,13 +47,18 @@ const handleTagRemoval = (event) => {
         tagsArray.forEach((item) => {
             tagReload = getMatchingRecipes(tagReload, item.title);
         });
-        handleFilterReload(tagReload);
-        displayRecipeCards(tagReload);
+
+        // Filter the data based on the research input
+        const filteredData = getMatchingRecipes(tagReload, researchInput);
+
+        handleFilterReload(filteredData);
+        displayRecipeCards(filteredData);
     }
 
     // Update the list of active filter tags in the UI.
     showListOfTags(tagsArray);
 };
+
 /**
  * Handles the filtering options when there is only one recipe
  * and when tags are added or removed.

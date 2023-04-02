@@ -1,6 +1,6 @@
 // Import modules
 import { displayFilters }from "./components/filters.js";
-// import { setAttributes } from "./utils.js";
+
 /**
  * Toggles the display of the keyword filter when a filter button is clicked.
  * @param {HTMLElement} btn - The button element that was clicked.
@@ -19,14 +19,13 @@ export function isFiltersInteractive(btn, buttonValue) {
             filterMenu.parentNode.firstElementChild
         );
     } else {
-    // If other filters are open, close them.
+        // If other filters are open, close them.
         isFilterClosed();
   
         // Open the selected filter.
         customizeSearchButton(btn, buttonValue);
     }
 }
-
 
 /**
  * Closes the selected menu and reverts its customization
@@ -43,14 +42,14 @@ export function closeSelectFilter(inputBtn, filterShow, parentWidth, rotateArrow
     parentWidth.style.width = "170px";
     rotateArrow.classList.remove("filter__arrow--rotate");
 }
-    
+
 /**
  * Checks if other filters are open and closes them.
 */
 export function isFilterClosed() {
     // Get all filter menus.
     document.querySelectorAll(".filter__menu").forEach((filter) => {
-    // If the current filter menu is open, close it.
+        // If the current filter menu is open, close it.
         if (filter.classList.contains("filter__show")) {
             closeSelectFilter(
                 filter.previousElementSibling,
@@ -122,4 +121,3 @@ export function customizeSearchButton(button, buttonValue) {
         button.value = "";
     }
 }
-  
