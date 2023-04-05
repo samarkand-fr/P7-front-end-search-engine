@@ -66,21 +66,21 @@ const handleTagRemoval = (event) => {
  * @param {Object[]} tagsArray - An array of tag objects
 */
 const handleFilterOption = (data, tagsArray) => {
-    // If data has only one item, then all filter options are marked as active.
+    // If data has only one item, then all filter options are marked as inactive.
     if (data.length === 1) {
         document.querySelectorAll(".filter__option").forEach((li) => {
             li.classList.remove("filter__option");
-            li.classList.add("active__filter");
+            li.classList.add("inActive__filter");
         });
     }
     // update the CSS classes of the filter options based on the tags in tagsArray.
-    //  If a tag matches a filter option, the filter option is marked as active; 
+    //  If a tag matches a filter option, the filter option is marked as inactive; 
     // otherwise, it is marked as a regular filter option. 
     tagsArray.forEach((tag) => {
         document.querySelectorAll(".filter__option").forEach((li) => {
             if (tag.title.includes(li.textContent)) {
                 li.classList.remove("filter__option");
-                li.classList.add("active__filter");
+                li.classList.add("inActive__filter");
             }
         });
     });

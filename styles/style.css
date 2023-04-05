@@ -20,9 +20,12 @@ body {
   .cards {
     width: 100%;
     gap: 50px;
-  }
-  .cards {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+  .card:hover {
+    transform: translateY(-5px) scale(1.005) translateZ(0);
+    box-shadow: 0 24px 36px rgba(0,0,0,0.11),
+      0 24px 46px var(--box-shadow-color);
   }
 }
 
@@ -213,7 +216,7 @@ body {
   font-size: 18px;
 }
 
-.active__filter {
+.inActive__filter {
   width: 33%;
   padding: 4px 0 4px 20px;
   font-size: 18px;
@@ -221,11 +224,11 @@ body {
   pointer-events: none;
 }
 
-.active__filter:hover {
+.inActive__filter:hover {
   cursor: default;
 }
 
-.active__filter::after {
+.inActive__filter::after {
   content: "";
   width: 0px;
   height: 1px;
