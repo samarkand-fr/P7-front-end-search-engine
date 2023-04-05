@@ -1,3 +1,5 @@
+import { removeAccents } from "../utils.js";
+
 /**
  * Get distinct items of a certain type from a data array.
  * @param {Array} data - The data array to search through.
@@ -36,9 +38,8 @@ export const getDistinctItems = (data, filter, type) => {
     // Get only the distinct values from the items array, and sort them alphabetically.
     const distinctItems = [...new Set(items)].sort();
   
-    // If a filter is provided, filter the distinctItems array to only include items that match the filter (case-insensitive).
     return filter ? distinctItems.filter(
-        item => item.includes(filter.toLowerCase().trim())
+        item => removeAccents(item).includes(removeAccents(filter.toLowerCase().trim()))
     ) : distinctItems;
 };
   

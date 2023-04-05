@@ -1,7 +1,6 @@
 // Import functions and modules
 import {capitalize } from "../utils.js";
-import {  listenToFilter } from "./tags.js";
-import { showListOfTags,tagsArray } from "./tags.js";
+import { listenToFilter, showListOfTags,tagsArray } from "./tags.js";
 import { displayRecipeCards } from "./cards.js";
 import {getDistinctItems} from "../searchAndFilter/filtering.js";
 
