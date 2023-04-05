@@ -1,3 +1,12 @@
+import {removeAccents} from  "../utils.js";
+
+/**
+ * Get distinct items of a certain type from a data array.
+ * @param {Array} data - The data array to search through.
+ * @param {String} filter - The filter string to match items against. Case-insensitive.
+ * @param {String} type - The type of item to extract ('ustensils', 'appliances', or 'ingredients').
+ * @returns {Array} - An array of distinct items of the specified type.
+ */
 export const getDistinctItems = (data, filter, type) => {
     let items = [];
     let distinctItems = [];
@@ -41,15 +50,19 @@ export const getDistinctItems = (data, filter, type) => {
     // If a filter is provided, filter the distinctItems array to only include items that match the filter (case-insensitive) using a for loop.
     if (filter) {
         const filteredItems = [];
+        const filterWithoutAccent = removeAccents(filter.toLowerCase().trim());
+    
         for (let i = 0; i < distinctItems.length; i++) {
             const item = distinctItems[i];
-            if (item.toLowerCase().trim().includes(filter.toLowerCase().trim())) {
+            const itemWithoutAccent = removeAccents(item.toLowerCase().trim());
+    
+            if (itemWithoutAccent.includes(filterWithoutAccent)) {
                 filteredItems.push(item);
             }
         }
-        return filteredItems;
-    }
     
-    return distinctItems;
-};
-  
+        return filteredItems;
+    } else {
+        return distinctItems;
+    }
+}; 
