@@ -1,4 +1,5 @@
-
+## Project-Image
+![](P7-front-end-search-engine/doc/project-image/les-petits-plats.png)
 ## Technologies
 ---------------
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
@@ -23,9 +24,7 @@ ustensiles ou appareil)
 5. Les champs ingrédients, ustensiles et appareil de la recherche avancée proposent seulement les éléments restant dans les recettes présentes sur la page
 
 ## validation 
--------------
 - W3C
 
 ## Framework
------------------
 - Vanilla JavaScript
