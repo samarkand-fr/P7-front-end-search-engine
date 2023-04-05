@@ -24,7 +24,9 @@ ustensiles ou appareil)
 5. Les champs ingrédients, ustensiles et appareil de la recherche avancée proposent seulement les éléments restant dans les recettes présentes sur la page
 
 ## validation 
+--------------
 - W3C
 
 ## Framework
+------------
 - Vanilla JavaScript
