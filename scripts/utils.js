@@ -15,7 +15,7 @@ export const capitalize = (str) => {
  */
 export const removeAccents = (str) => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-};
+}; 
 
 /**    
  * This function checks if a given recipe object matches the provided filter string
@@ -23,29 +23,31 @@ export const removeAccents = (str) => {
  * @param {string} filterLowerCase - The search filter string in lowercase.
  * @returns {boolean} - True if the recipe matches the search filter, false otherwise.
 */
-export const matchesFilter = (recipe, filterLowerCase) => {
+export const matchesFilter = (recipe, filter) => {
     const { name, description, appliance, ustensils, ingredients } = recipe;
-
-    // Remove accents from the filter and recipe properties
-    const nameWithoutAccent = removeAccents(name);
-    const descriptionWithoutAccent = removeAccents(description);
-    const applianceWithoutAccent = removeAccents(appliance);
-    const ustensilsWithoutAccent = ustensils.map(ustensil => removeAccents(ustensil));
-    const ingredientsWithoutAccent = ingredients.map(ingredient => removeAccents(ingredient.ingredient));
-
-    // A helper function that checks if a string includes a given filter string, case-insensitively
-    const includesFilter = (string) => string.toLowerCase().includes(filterLowerCase);
-
+  
+    // Remove accents from the filter string
+    const filterWithoutAccents = removeAccents(filter);
+  
+    // Remove accents from the recipe properties
+    const nameWithoutAccents = removeAccents(name);
+    const descriptionWithoutAccents = removeAccents(description);
+    const applianceWithoutAccents = removeAccents(appliance);
+    const ustensilsWithoutAccents = ustensils.map(ustensil => removeAccents(ustensil));
+    const ingredientsWithoutAccents = ingredients.map(ingredient => removeAccents(ingredient.ingredient));
+  
+    // Check if the filter string is included in any of the recipe properties
+    const includesFilter = (string) => string.toLowerCase().includes(filterWithoutAccents.toLowerCase());
+  
     return (
-        includesFilter(nameWithoutAccent) ||
-        includesFilter(descriptionWithoutAccent) ||
-        includesFilter(applianceWithoutAccent) ||
-        ustensilsWithoutAccent.some((ustensil) => includesFilter(ustensil)) ||
-        ingredientsWithoutAccent.some(ingredient => includesFilter(ingredient))
+        includesFilter(nameWithoutAccents) ||
+      includesFilter(descriptionWithoutAccents) ||
+      includesFilter(applianceWithoutAccents) ||
+      ustensilsWithoutAccents.some((ustensil) => includesFilter(ustensil)) ||
+      ingredientsWithoutAccents.some(ingredient => includesFilter(ingredient))
     );
 };
-  
-    
+     
     
     
     
