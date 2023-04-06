@@ -33,7 +33,7 @@ const createFilterMenuHTML = (listData, menuClass, dataColor) => {
  */
 const hydrateFilter = (data, value, btn, datacolor, filter) => {
     // Depending on the filter type (value), generates the corresponding filter menu HTML by calling the 
-    // appropriate helper function (getDistinctIngredients, getDistinctAppliances, or getDistinctUstensils) 
+    // appropriate helper function getDistinctItems)()  for (Ingredients,Appliances,Ustensils) 
     // to get the distinct values of the specified filter type in the data array. 
     // The filter menu HTML is generated using the createFilterMenuHTML function and inserted after the clicked button.
     
@@ -128,6 +128,3 @@ export let bindFilterEvents = (recipes) => {
         });
     }
 };
-
-
-
