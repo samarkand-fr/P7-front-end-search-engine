@@ -60,30 +60,30 @@ export function isFilterClosed() {
 }
 
 /**
- * Closes the filter and loads new elements based on a new list of recipes to filter.
- * @param {Array} data - The new list of recipes to filter
- * Checks if any of the filters have been reloaded, and if so,
- * it updates the corresponding search button and repopulates the filter options.
+ * Reloads the filter menus with new search data and customizes the input buttons.
+ * @param {Object} data - The search data used to populate the filter menus.
  */
 export function handleFilterReload(data) {
-    // Loop through each filter menu.
-    document.querySelectorAll(".filter__menu").forEach((filter) => {
-        // Check if the filter menu is open.
-        if (filter.classList.contains("filter__show")) {
-            // Get the input button and its value.
-            const inputBtn = filter.previousElementSibling;
-            const btnvalue = inputBtn.getAttribute("value");
-
-            // Remove previous UL containing LI elements.
-            document.querySelectorAll(".filter__menu").forEach((ul) => ul.remove());
-
-            // Populate LI elements with new search.
-            displayFilters(data);
-            // Open input again in text mode.
-            customizeSearchButton(inputBtn, btnvalue);
-        }
+    // Select all filter menu elements and remove their previous UL containing LI elements.
+    const filterMenus = document.querySelectorAll(".filter__menu");
+    filterMenus.forEach((ul) => {
+        ul.remove();
+    });
+  
+    // Populate the filter menus with new search data.
+    displayFilters(data);
+  
+    // Select all input buttons and customize them by opening in text mode.
+    const inputButtons = document.querySelectorAll(".filter__btn");
+    inputButtons.forEach((btn) => {
+        // Get the button value.
+        const btnvalue = btn.getAttribute("value");
+  
+        // Open input again in text mode.
+        customizeSearchButton(btn, btnvalue);
     });
 }
+  
 
 /**
  * Changes the type, placeholder, width, and other attributes of a given button element based on a specified buttonValue.
