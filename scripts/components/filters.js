@@ -1,6 +1,7 @@
 // Import functions and modules
 import {capitalize } from "../utils.js";
-import { listenToFilter} from "./tags.js";
+import { listenToFilter, showListOfTags,tagsArray } from "./tags.js";
+import { displayRecipeCards } from "./cards.js";
 import {getDistinctItems} from "../searchAndFilter/filtering.js";
 
 /** 
@@ -90,3 +91,40 @@ export const displayFilters = (data, btn, filter, value, color) => {
     listenToFilter(data, document.querySelectorAll(".filter__option"));
 };
 
+
+/**
+ * Binds event listeners to filter select elements and updates the display
+ * of recipe cards based on the selected filters.
+ * @param {Array} recipes - The list of recipes to filter.
+ */
+export let bindFilterEvents = (recipes) => {
+    // Get all filter select elements on the page
+    const filterInputValue = document.querySelectorAll(".filter__select");
+  
+    // Add an event listener for each filter select element
+    for (const input of filterInputValue) {
+        input.addEventListener("input", (e) => {
+            e.preventDefault();
+  
+            // show the list of tags
+            showListOfTags(tagsArray);
+  
+            // Display all recipe cards
+            displayRecipeCards(recipes);
+  
+            // Get the value of (data-value and data-color) attributes from the filter select element
+            const value = input.getAttribute("data-value");
+            const color = input.getAttribute("data-color");
+  
+            // Remove the tag list element from the DOM 
+            input.nextElementSibling.remove();
+  
+            // Call the displayFilters function with the selected filter options
+            displayFilters(recipes, input, input.value, value, color);
+  
+            // Update the style of the filter select element and show the tag list
+            input.nextElementSibling.classList.add("filter__show");
+            input.previousElementSibling.classList.add("filter__arrow--rotate");
+        });
+    }
+};

@@ -1,6 +1,6 @@
 // Import modules
 import { displayRecipeCards } from "./scripts/components/cards.js";
-import { displayFilters } from "./scripts/components/filters.js";
+import { displayFilters , bindFilterEvents } from "./scripts/components/filters.js";
 import {  findRecipe } from "./scripts/searchAndFilter/search.js";
 import { recipes } from "./data/recipes.js";
 
@@ -14,6 +14,7 @@ class RecipeRenderer {
         displayRecipeCards(this.recipes);
         findRecipe(this.recipes);
         displayFilters(this.recipes);
+        bindFilterEvents(this.recipes);
         return this.recipes;
     }
 }

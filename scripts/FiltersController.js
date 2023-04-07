@@ -1,10 +1,4 @@
 import { displayFilters } from "./components/filters.js";
-import { tagsArray ,showListOfTags} from "./components/tags.js";
-import { displayRecipeCards } from "./components/cards.js";
-
-// constants
-const FILTER_MENU_WIDTH = "170px";
-const SEARCH_INPUT_WIDTH = "66%";
 
 const filterButtons = document.querySelectorAll(".filter__select");
 
@@ -46,7 +40,7 @@ export function closeSelectFilter(filterShow) {
     inputBtn.setAttribute("value", inputBtn.getAttribute("data-value"));
     inputBtn.removeAttribute("placeholder");
     filterShow.classList.remove("filter__show");
-    filterShow.parentNode.style.width = FILTER_MENU_WIDTH;
+    filterShow.parentNode.style.width = "170px";
     filterShow.parentNode.firstElementChild.classList.remove(
         "filter__arrow--rotate"
     );
@@ -61,6 +55,32 @@ export function isFilterClosed() {
         // If the current filter menu is open, close it.
         if (filter.classList.contains("filter__show")) {
             closeSelectFilter(filter);
+        }
+    });
+}
+
+/**
+ * Closes the filter and loads new elements based on a new list of recipes to filter.
+ * @param {Array} data - The new list of recipes to filter
+ * Checks if any of the filters have been reloaded, and if so,
+ * it updates the corresponding search button and repopulates the filter options.
+ */
+export function handleFilterReload(data) {
+    // Loop through each filter menu.
+    document.querySelectorAll(".filter__menu").forEach((filter) => {
+        // Check if the filter menu is open.
+        if (filter.classList.contains("filter__show")) {
+            // Get the input button and its value.
+            const inputBtn = filter.previousElementSibling;
+            const btnvalue = inputBtn.getAttribute("value");
+
+            // Remove previous UL containing LI elements.
+            document.querySelectorAll(".filter__menu").forEach((ul) => ul.remove());
+
+            // Populate LI elements with new search.
+            displayFilters(data);
+            // Open input again in text mode.
+            customizeSearchButton(inputBtn, btnvalue);
         }
     });
 }
@@ -84,81 +104,10 @@ export function customizeSearchButton(button, buttonValue) {
         button.setAttribute("type", "text");
         button.setAttribute("data-value", buttonValue);
         button.setAttribute("placeholder", value);
-        button.parentNode.style.width = SEARCH_INPUT_WIDTH ;
+        button.parentNode.style.width = "66%";
         button.nextElementSibling.classList.add("filter__show");
         button.previousElementSibling.classList.add("filter__arrow--rotate");
         // the button is cleared and ready for the user to input a new value.
         button.value = "";
     }
-}
-
-/**
- * Binds event listeners to filter select elements and updates the display
- * of recipe cards based on the selected filters.
- * @param {Array} recipes - The list of recipes to filter.
- * @param {boolean} isReload - Whether the function was called from a filter reload event or not.
- */
-const bindFilterEvents = (recipes, isReload = false) => {
-    // Get all filter select elements on the page
-    const filterInputValue = document.querySelectorAll(".filter__select");
-  
-    // Add an event listener for each filter select element
-    for (const input of filterInputValue) {
-        input.addEventListener("input", (e) => {
-            e.preventDefault();
-  
-            // show the list of tags
-            showListOfTags(tagsArray);
-  
-            // Display all recipe cards if not called from a filter reload event
-            if (!isReload) {
-                displayRecipeCards(recipes);
-            }
-  
-            // Get the value of (data-value and data-color) attributes from the filter select element
-            const value = input.getAttribute("data-value");
-            const color = input.getAttribute("data-color");
-  
-            // Remove the tag list element from the DOM 
-            input.nextElementSibling.remove();
-  
-            // Call the displayFilters function with the selected filter options
-            displayFilters(recipes, input, input.value, value, color);
-  
-            // Update the style of the filter select element and show the dropdown list
-            input.setAttribute("value", input.value);
-            input.parentNode.style.width = SEARCH_INPUT_WIDTH;
-            input.nextElementSibling.classList.add("filter__show");
-            input.previousElementSibling.classList.add("filter__arrow--rotate");
-        });
-    }
-};
-
-/**
- * Reloads the filter and updates the display of recipe cards based on a new list of recipes to filter.
- * @param {Array} data - The new list of recipes to filter
- */
-export function handleFilterReload(data) {
-    const filterMenus = document.querySelectorAll(".filter__menu");
-
-    // Loop through each filter menu.
-    filterMenus.forEach((filter) => {
-        // Check if the filter menu is open.
-        if (filter.classList.contains("filter__show")) {
-            // Get the input button and its value.
-            const inputBtn = filter.previousElementSibling;
-            const btnvalue = inputBtn.getAttribute("value");
-
-            // Remove previous UL containing LI elements.
-            filter.remove();
-
-            // Populate LI elements with new search.
-            displayFilters(data);
-            // Open input again in text mode.
-            customizeSearchButton(inputBtn, btnvalue);
-
-            // Bind filter events to the new filter menus
-            bindFilterEvents(data, true);
-        }
-    });
 }
