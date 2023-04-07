@@ -1,4 +1,4 @@
-## Project
+## $\color{green}{Project}$
 ![](./doc/project-image/les-petits-plats.png)
 ## $\color{green}{Technologies}$ 
 ---------------
@@ -6,7 +6,12 @@
 [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)
 
-
+## $\color{green}{Installation}$
+- Depuis console
+ git clone https://github.com/samarkand-fr/P7-front-end-search-engine.git
+ cd  P7-front-end-search-engine/
+ run liveserver
+ 
 ## $\color{green}{Objectif}$
  Accéder rapidement à une recette correspondant à un besoin de l’utilisateur dans les recettes déjà reçues
 
