@@ -8,9 +8,9 @@
 
 ## $\color{green}{Installation}$
 - Depuis console
- git clone https://github.com/samarkand-fr/P7-front-end-search-engine.git
- cd  P7-front-end-search-engine/
- run liveserver
+- git clone https://github.com/samarkand-fr/P7-front-end-search-engine.git
+- cd  P7-front-end-search-engine/
+- run liveserver
  
 ## $\color{green}{Objectif}$
  Accéder rapidement à une recette correspondant à un besoin de l’utilisateur dans les recettes déjà reçues
