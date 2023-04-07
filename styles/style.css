@@ -345,12 +345,20 @@ body {
 }
 
 @media only screen and (min-width: 674px) {
+  .wrapper {
+    width: 90%;
+    margin: auto;
+  }
   .cards {
     grid-template-columns: 1fr 1fr;
     margin: 5px auto;
   }
 }
 @media only screen and (max-width: 474px) {
+  .wrapper {
+    width: 95%;
+    margin: auto;
+  }
   .cards {
     grid-template-columns: 1fr ;
     place-items: center;
